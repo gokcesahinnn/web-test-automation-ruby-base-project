@@ -10,7 +10,6 @@ require 'json'
 require 'jsonpath'
 require 'logger'
 require 'faker'
-require 'webdrivers'
 
 Dir["#{Dir.pwd}/config/**/*.rb"].each { |file| require_relative file }
 Dir["#{Dir.pwd}/global/**/*.rb"].each { |file| require_relative file }

@@ -1,7 +1,7 @@
 class SearchPage
 
   def initialize
-    @txt_search_css = "input[name='q']"
+    @txt_search_css = "[name='q']"
     @btn_search_css = "input[name='btnK']"
   end
 
@@ -15,7 +15,7 @@ class SearchPage
   end
 
   def click_search_button
-    find(@btn_search_css).click
+    first(@btn_search_css).click
   end
 
 end

@@ -12,9 +12,8 @@ source 'https://rubygems.org' do
   gem 'report_builder'
   gem 'rexml'
   gem 'rspec'
-  gem 'webdrivers', '~> 5.0', require: false
-  gem 'selenium-devtools'
-  gem 'chrome_remote'
-
-
+  gem 'gherkin-ruby'
+  gem 'capybara-screenshot-diff'
+  gem 'cuke_modeler', '~> 3.19'
+  gem 'oily_png', platform: :ruby
 end
