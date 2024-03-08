@@ -1,6 +1,6 @@
 Feature: Search Feature
 
-  @smoke
+  @smoke @regression
   Scenario: Search successfully
     Given visit url
     When search "kloia" on search page
