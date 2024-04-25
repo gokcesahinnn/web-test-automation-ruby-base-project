@@ -7,6 +7,12 @@ pool:
 variables:
   reportName: 'WEB Lokal Pipeline Report'
 
+parameters:
+  - name: TagName
+    displayName: TagName
+    default: '@smoke'
+    type: string
+
 steps:
 - task: UseRubyVersion@0
   inputs:
