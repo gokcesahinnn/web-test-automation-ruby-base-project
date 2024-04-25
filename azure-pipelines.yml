@@ -1,0 +1,53 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  reportName: 'WEB Lokal Pipeline Report'
+
+steps:
+- task: UseRubyVersion@0
+  inputs:
+    versionSpec: '>= 2.5'
+
+- script: |
+    gem install bundler
+    bundle install --retry=3 --jobs=4
+  displayName: 'bundle install'
+
+- script: |
+    bundle exec cucumber --tags "@smoke" headless=true browser=chrome
+  displayName: 'Running Test'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/TEST-*.xml'
+    testRunTitle: 'Automated Tests'
+
+- task: PublishAllureResults@2
+  inputs:
+    resultsFolder: 'output/allure-results'
+
+- script: |
+    echo "Build completed successfully."
+  displayName: 'Completion'
+
+- task: SlackSend@2
+  inputs:
+    slackType: 'message'
+    channelName: 'your_channel'
+    message: ':white_check_mark: *$(Build.SourceBranchName) Success Test Automation Report* (<$(System.CollectionUri)/$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)|$(reportName)>)'
+    authorName: 'Azure Pipelines'
+    authorIcon: 'https://cdn.vsassets.io/ext/ms.vss-ciworkflow/ci-icon.png'
+  condition: succeeded()
+
+- task: SlackSend@2
+  inputs:
+    slackType: 'message'
+    channelName: 'your_channel'
+    message: ':exclamation: *$(Build.SourceBranchName) Failure Test Automation Report*'
+    authorName: 'Azure Pipelines'
+    authorIcon: 'https://cdn.vsassets.io/ext/ms.vss-ciworkflow/ci-icon.png'
+  condition: failed()
