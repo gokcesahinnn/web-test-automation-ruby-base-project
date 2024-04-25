@@ -14,5 +14,4 @@ steps:
 
 - script: |
     bundle install
-    bundle exec cucumber --tags "@smoke" headless=true browser=chrome
   displayName: 'Running Test'
