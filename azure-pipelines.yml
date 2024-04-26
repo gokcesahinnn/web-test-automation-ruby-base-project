@@ -16,8 +16,11 @@ parameters:
 
   - name: Headless
     displayName: Headless
+    type: string
     default: true
-    type: boolean    
+    values:
+    - true
+    - false
 
 steps:
 
