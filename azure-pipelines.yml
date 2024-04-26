@@ -13,6 +13,11 @@ parameters:
     default: '@smoke'
     type: string
 
+  - name: Headless
+    displayName: Headless
+    default: true
+    type: boolean    
+
 steps:
 
 - script: |
@@ -21,5 +26,5 @@ steps:
   displayName: 'bundle install'
 
 - script: |
-    bundle exec cucumber --tags "${{parameters.TagName}}" headless=true browser=chrome
+    bundle exec cucumber --tags "${{parameters.TagName}}" headless=${{parameters.Headless}} browser=chrome
   displayName: 'Running Test'
