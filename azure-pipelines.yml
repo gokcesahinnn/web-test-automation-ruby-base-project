@@ -1,6 +1,7 @@
 trigger:
 - master
 
+    
 pool:
   name: default
 
@@ -28,3 +29,9 @@ steps:
 - script: |
     bundle exec cucumber --tags "${{parameters.TagName}}" headless=${{parameters.Headless}} browser=chrome
   displayName: 'Running Test'
+
+- task: PublishAllureReport@1
+  inputs:
+    allureVersion: '2.27.0'
+    testResultsDir: 'output/allure-results'
+    reportName: 'Web Lokal Test Report'
